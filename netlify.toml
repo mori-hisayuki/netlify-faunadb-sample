@@ -1,6 +1,6 @@
 [build]
   # functionsディレクトリ名
-  functions = "./.netlify/functions/"
+  functions = "./functions"
   # Netfilyのbulid時コマンド
   command = "yarn build"
   # build後のフォルダ
