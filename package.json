@@ -13,14 +13,15 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-scripts": "3.3.1",
-    "typescript": "~3.7.2"
+    "typescript": "~3.7.2",
+    "faunadb": "^2.6.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build && yarn service:build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "service:build": "netlify functions:build --src ./functions/fauna-crud --functions=./.netlify/functions/"
+    "service:build": "netlify functions:build --src ./functions --functions=./.netlify/functions/"
   },
   "eslintConfig": {
     "extends": "react-app"
