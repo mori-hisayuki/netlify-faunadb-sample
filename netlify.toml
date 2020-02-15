@@ -1,6 +1,6 @@
 [build]
   # functionsディレクトリ名
-  functions = "functions/fauna-crud"
+  functions = "./.netlify/functions/"
   # Netfilyのbulid時コマンド
   command = "yarn build"
   # build後のフォルダ

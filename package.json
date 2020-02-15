@@ -17,9 +17,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && yarn service:build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "service:build": "netlify functions:build --src ./functions/ --functions=./.netlify/functions/"
   },
   "eslintConfig": {
     "extends": "react-app"
