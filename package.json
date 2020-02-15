@@ -20,7 +20,7 @@
     "build": "react-scripts build && yarn service:build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "service:build": "netlify functions:build --src ./functions/ --functions=./.netlify/functions/"
+    "service:build": "netlify functions:build --src ./functions/fauna-crud --functions=./.netlify/functions/"
   },
   "eslintConfig": {
     "extends": "react-app"
