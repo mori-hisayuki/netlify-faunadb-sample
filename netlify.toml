@@ -1,0 +1,7 @@
+[build]
+  # functionsディレクトリ名
+  functions = "functions/fauna-crud"
+  # Netfilyのbulid時コマンド
+  command = "yarn build"
+  # build後のフォルダ
+  publish = "build"
