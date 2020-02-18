@@ -15,8 +15,6 @@ function useEffectAsync(
 
 const App: React.FC = () => {
 
-  const [tasks, setTasks] = useState(Array<Task>())
-
   useEffectAsync(async () => {
     var initialState: Array<Task> = Array<Task>();
     const res = await fetch(
@@ -24,11 +22,12 @@ const App: React.FC = () => {
       ).then((response: Response) => {
         response.json().then((faunaResponse: Array<FaunaResponse>) => {
             faunaResponse.map((item: FaunaResponse) => {
-                console.log(item.data)
-              initialState.push(item.data)
+              console.log(item.ref['@ref'].id)
+              console.log(item.data)
+              console.log({ "id": item.ref['@ref'].id, "data": item.data })
+              initialState.push({ "id": item.ref['@ref'].id, "data": item.data })
               console.log(initialState.length)
             })
-            console.log('useEffectAsync:' + initialState)
             setTasks(initialState);
             console.log('useEffectAsync end')
         })
@@ -36,6 +35,8 @@ const App: React.FC = () => {
     })
     .catch((error: Error) => { throw error });
   },[])
+
+  const [tasks, setTasks] = useState(Array<Task>())
 
   console.log('effect start')
   return (

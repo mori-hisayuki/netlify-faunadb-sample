@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Task } from './Types'
+import { Task, InputTask } from './Types'
 import {create } from '../utils/api';
 
 type Props = {
@@ -12,24 +12,19 @@ const TaskInput: React.FC<Props> = ({ setTasks, tasks }) => {
     const [ count, setCount ] = useState<number>(tasks.length + 1)
 
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setInputTitle(e.target.value)
-    }
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => setInputTitle(e.target.value)
 
-    const handleSubmit = () => {
+
+    const handleSubmit = async () => {
         setCount(count + 1)
 
-        const newTask: Task = {
+        const newTask: InputTask = {
             id: count,
             title: inputTitle,
             done: false
         }
 
-        create(newTask);
-
-        setTasks([newTask, ...tasks])
-        setInputTitle('')
-
+        await create(newTask).then((task: Task) => setTasks([task, ...tasks]))
     }
 
     return (
@@ -42,7 +37,7 @@ const TaskInput: React.FC<Props> = ({ setTasks, tasks }) => {
                         value={inputTitle}
                         onChange={handleInputChange}
                     />
-                    <button onClick={handleSubmit} className="btn is-primary">??</button>
+                    <button onClick={handleSubmit} className="btn is-primary">追加</button>
                 </div>
             </div>
         </div>

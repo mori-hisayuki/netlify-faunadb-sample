@@ -1,6 +1,7 @@
 import React from 'react'
 import { Task } from "./Types";
 import TaskItem from './TaskItem';
+import { deleteOf, update } from '../utils/api';
 
 type Props = {
     tasks: Task[]
@@ -10,14 +11,17 @@ type Props = {
 
 const TaskItemList: React.FC<Props> = ({ tasks, setTasks }) => {
     const handleDone = (task: Task) => {
+        console.log("update:" + task);
+        update(task);
         setTasks(prev => prev.map(t =>
             t.id === task.id
-                ? { ...task, done: !task.done }
+                ? { ...task, done: !task.data.done }
                 : t
         ))
     }
 
     const handleDelete = (task: Task) => {
+        deleteOf(task);
         setTasks(prev => prev.filter(t =>
             t.id !== task.id
         ))

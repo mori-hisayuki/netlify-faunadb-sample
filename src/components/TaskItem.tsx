@@ -10,15 +10,15 @@ type Props = {
 
 const TaskItem: React.FC<Props> = ({ task, handleDone, handleDelete }) => {
     return (
-        <li className={task.done ? 'done' : ''}>
+        <li className={task.data.done ? 'done' : ''}>
             <label>
                 <input
                     type="checkbox"
                     className="checkbox-input"
                     onClick={() => handleDone(task)}
-                    defaultChecked={task.done}
+                    defaultChecked={task.data.done}
                 />
-                <span className="checkbox-label">{ task.title }</span>
+                <span className="checkbox-label">{ task.data.title }</span>
             </label>
             <button
                 onClick={() => handleDelete(task)}
