@@ -1,6 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, DependencyList, useEffect } from 'react'
 import { Task, InputTask } from './Types'
 import {create } from '../utils/api';
+
+function useEffectAsync(
+    effect: () => void,
+    deps?: DependencyList
+  ) {
+    useEffect(() => {
+      effect();
+    }, deps);
+  }
+
 
 type Props = {
     setTasks: React.Dispatch<React.SetStateAction<Task[]>>
@@ -15,7 +25,8 @@ const TaskInput: React.FC<Props> = ({ setTasks, tasks }) => {
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => setInputTitle(e.target.value)
 
 
-    const handleSubmit = async () => {
+    const handleSubmit = () => {
+
         setCount(count + 1)
 
         const newTask: InputTask = {
@@ -24,7 +35,11 @@ const TaskInput: React.FC<Props> = ({ setTasks, tasks }) => {
             done: false
         }
 
-        await create(newTask).then((task: Task) => setTasks([task, ...tasks]))
+        console.log('start');
+        create(newTask).then((task: Task) => setTasks([task, ...tasks]))
+        setInputTitle('')
+        console.log('end');
+
     }
 
     return (

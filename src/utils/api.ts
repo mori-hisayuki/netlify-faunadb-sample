@@ -1,19 +1,24 @@
 import { Task, FaunaResponse, InputTask } from "../components/Types";
 
-export function readAll(): any {
+export const readAll = async (): Promise<Array<Task>> => {
     var initialState: Task[] = Array<Task>();
-    fetch('./.netlify/functions/fauna-crud')
+    return fetch('./.netlify/functions/fauna-crud')
         .then((response: Response) => {
-            response.json().then((faunaResponse: Array<FaunaResponse>) => {
+            return response.json().then((faunaResponse: Array<FaunaResponse>) => {
                 faunaResponse.map((item: FaunaResponse) => {
+                    console.log(item.ref['@ref'].id)
                     console.log(item.data)
-                    initialState.push(item.data)
+                    console.log({ "id": item.ref['@ref'].id, "data": item.data })
+                    initialState.push({ "id": item.ref['@ref'].id, "data": item.data })
+                    console.log(initialState.length)
                 })
+                return Promise.resolve(initialState);
             })
-            return initialState
+
         })
         .catch((error: Error) => { throw error });
 
+    console.log("readAll:" + initialState)
 }
 
 export const create = (task: InputTask): Promise<Task> => {

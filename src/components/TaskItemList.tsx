@@ -10,21 +10,32 @@ type Props = {
 
 
 const TaskItemList: React.FC<Props> = ({ tasks, setTasks }) => {
+
     const handleDone = (task: Task) => {
         console.log("update:" + task);
-        update(task);
+        console.log("update:" + { id: task.id, data: { done: !task.data.done } });
+        const changeTask = {
+            id: task.id,
+            data: {
+                id: task.data.id,
+                title: task.data.title,
+                done: !task.data.done
+            }
+        }
+
         setTasks(prev => prev.map(t =>
             t.id === task.id
-                ? { ...task, done: !task.data.done }
+                ? changeTask
                 : t
         ))
+        update(task);
     }
 
     const handleDelete = (task: Task) => {
-        deleteOf(task);
         setTasks(prev => prev.filter(t =>
             t.id !== task.id
         ))
+        deleteOf(task);
     }
 
     return (
